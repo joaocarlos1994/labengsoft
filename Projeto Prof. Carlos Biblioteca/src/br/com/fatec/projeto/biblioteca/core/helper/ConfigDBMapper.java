@@ -4,29 +4,44 @@ import java.util.List;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class ConfigDBMapper {
-	
-	//Instância única para garantir a reutilização das connections
+
+	// Instância única para garantir a reutilização das connections
 	private static ConfigDBMapper instance;
-	//Objeto que irá traduzir os dados do arquivos database.json
+	// Objeto que irá traduzir os dados do arquivos database.json
 	private static JSONParser parser = new JSONParser();
-	//um class loader para encontrar facilmente o arquivo de config
-	private static final ClassLoader loader  = ConfigDBMapper.class.getClassLoader();
-	//Mapa de connections já existentes, permintindo que toda connections, depois
-	//de devidamente criada, possa ser reutilizada sempre que necessário.
+	// um class loader para encontrar facilmente o arquivo de config
+	private static final ClassLoader loader = ConfigDBMapper.class.getClassLoader();
+	// Mapa de connections já existentes, permintindo que toda connections,
+	// depois
+	// de devidamente criada, possa ser reutilizada sempre que necessário.
 	private static Map<String, Connection> connections = new HashMap<String, Connection>();
-	//propriedade utilizada para definir qual será o nome da conexão padrão,
-	//podendo assim variar para teste ou produção
+	// propriedade utilizada para definir qual será o nome da conexão padrão,
+	// podendo assim variar para teste ou produção
 	private String defaultConnectionName;
-	//Lista de configs disponíveis para utilização
+	// Lista de configs disponíveis para utilização
 	private List<String> possibleConfig;
+
+	
+	public static ConfigDBMapper getInstance(){
+		if(instance == null){
+			return instance = new ConfigDBMapper();
+		}
+		return instance;
+	}
+	
+	public void loadConnections(){
 	
 	try {
 	
@@ -70,68 +85,74 @@ public class ConfigDBMapper {
 	}
 	//ára finalizar criamos uma lista de todos os nomes de configs
 	//disponiveis utilizando as 'keys' do mapa
-	this.possibleConfigs = new ArrayList<String>(connections.keySet());
+	this.possibleConfig = new ArrayList<String>(connections.keySet());
 	
 	} catch (Exception ex ){
 		throw new RuntimeException();
 	}
 	
-	/** 
+	}
+
+	/**
 	 * Esse método possui uma iteligência que pode parecer uma pegadinha. Ele
-	 * faz com que a propreidade 'defaultConnectionName' receba o valor uma única
-	 * vez, com isso se torna impossível que por acidente a configuração padrão
-	 * de banco seja alterada. Além disso esse método também verifica se a 'config'
-	 * passada existe na lista de possíveis conexões, caso não uma exeção é lançada
+	 * faz com que a propreidade 'defaultConnectionName' receba o valor uma
+	 * única vez, com isso se torna impossível que por acidente a configuração
+	 * padrão de banco seja alterada. Além disso esse método também verifica se
+	 * a 'config' passada existe na lista de possíveis conexões, caso não uma
+	 * exeção é lançada
 	 *
-	 *@param config
+	 * @param config
 	 * */
-	
-	public void setDefaultConnectionName(String config){
-		if(this.defaultConnectionName == null && (config != !StringUtils.isEmpty(config))){
-			if(this.possibleConfig.contains(config)){
+
+	public void setDefaultConnectionName(String config) {
+		if (this.defaultConnectionName == null && config == "") {
+			if (this.possibleConfig.contains(config)) {
 				this.defaultConnectionName = config;
 			} else {
-				throw new RuntimeException("Não existe configuração com nome '" + config + "'.");
+				throw new RuntimeException("Não existe configuração com nome '"
+						+ config + "'.");
 			}
 		}
 	}
-	
-	/** 
+
+	/**
 	 * @return {@link Connetion} gerada a partir da propriedade
-	 * 			defaultConnectionName, ou null caso não esteja configurada
+	 *         defaultConnectionName, ou null caso não esteja configurada
 	 * */
-	
-	public Connection getDefaultConnetion(){
-		if(this.defaultConnectionName == null){
+
+	public Connection getDefaultConnetion() {
+		if (this.defaultConnectionName == null) {
 			return null;
 		}
 		return this.getConnectionByConfig(this.defaultConnectionName);
 	}
-	
+
 	/**
 	 * @return lista com todos os nomes de configurações disponíveis, essa lista
-	 * é criada a partir do método 'loadConnections'
+	 *         é criada a partir do método 'loadConnections'
 	 * */
-	
-	public List<String> getPossibleConfigs(){
+
+	public List<String> getPossibleConfigs() {
 		return this.possibleConfig;
 	}
-	
+
 	/**
 	 * @param configName
 	 * @return {@link Connetion} gerada a partir do arquivo de configuração que
-	 * possua a 'configName' passada ou exception caso essa configuração
-	 * não existisse no momento de load das configs
+	 *         possua a 'configName' passada ou exception caso essa configuração
+	 *         não existisse no momento de load das configs
 	 * */
-	
-	public Connection getConnectionByConfig(String configName){
-		if(connections.containsKey(configName)){
+
+	public Connection getConnectionByConfig(String configName) {
+		if (connections.containsKey(configName)) {
 			return connections.get(configName);
 		}
-		throw new RuntimeException("Não existe configuração com nome '" + configName + "'.");
+		throw new RuntimeException("Não existe configuração com nome '"
+				+ configName + "'.");
 	}
-	
-	public AlunoDAOImpl(){
-		this.connections = ConfigDBMapper.getInstance().getDefaultConnection();
+
+	public void AlunoDAOImpl() {
+		this.connections = (Map<String, Connection>) ConfigDBMapper.getInstance().getDefaultConnetion();
+		
 	}
 }

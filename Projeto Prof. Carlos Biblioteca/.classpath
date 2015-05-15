@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/FATEC 6 º Semestre/Lab. Eng. Software/João Carlos/LAB-04/dependecies/log4j/slf4j-jdk14-1.7.10.jar"/>
 	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/json-simple/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/lombok/lombok1164.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/FATEC 6 º Semestre/Lab. Eng. Software/João Carlos/LAB-04/apache-tomcat-7.0.59/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
