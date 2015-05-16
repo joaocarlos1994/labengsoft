@@ -31,7 +31,7 @@ public class AlunoDAOImpl implements AlunoDAO {
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + Aluno.TABLE + " VALUES (?,?,?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(Aluno.TABLE);
 			insert.setLong(1, id);
 			insert.setString(2, aluno.getNome());
 			insert.setString(3, aluno.getRa());

@@ -33,7 +33,7 @@ public class ProfessorDAOImpl implements ProfessorDAO{
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + Professor.TABLE + " VALUES (?,?,?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(Professor.TABLE);
 			insert.setLong(1, id);
 			insert.setString(2, professor.getNome());
 			insert.setString(3, professor.getRegistro());

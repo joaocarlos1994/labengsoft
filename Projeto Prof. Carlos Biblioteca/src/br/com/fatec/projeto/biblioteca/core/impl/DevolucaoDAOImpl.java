@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.sql.Date;
 
+import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Devolucao;
 import br.com.fatec.projeto.biblioteca.api.service.DevolucaoDAO;
 import br.com.fatec.projeto.biblioteca.api.service.EmprestimoDAO;
@@ -36,7 +37,7 @@ public class DevolucaoDAOImpl implements DevolucaoDAO{
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + Devolucao.TABLE + " VALUES (?,?,?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(Devolucao.TABLE);
 			insert.setLong(1, id);
 			insert.setDate(2, new Date(devolucao.getDataDevolucao().getTime()));
 			insert.setLong(3, devolucao.getExemplar().getId());

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Exemplar;
 import br.com.fatec.projeto.biblioteca.api.service.ExemplarDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.ExemplarFactory;
@@ -31,7 +32,7 @@ public class ExemplarDAOImpl implements ExemplarDAO{
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + Exemplar.TABLE + " VALUES (?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(Exemplar.TABLE);
 			insert.setLong(1, id);
 			insert.setLong(2, exemplar.getLivro().getId());
 			insert.execute();

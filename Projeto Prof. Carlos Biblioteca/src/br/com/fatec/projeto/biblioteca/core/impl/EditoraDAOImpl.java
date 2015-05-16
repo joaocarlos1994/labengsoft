@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Editora;
 import br.com.fatec.projeto.biblioteca.api.service.EditoraDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.EditoraFactory;
@@ -31,7 +32,7 @@ public class EditoraDAOImpl implements EditoraDAO {
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + Editora.TABLE + " VALUES (?,?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(Editora.TABLE);
 			insert.setLong(1, id);
 			insert.setString(2, editora.getNomeEditora());
 			insert.setString(3, editora.getSeguimento());

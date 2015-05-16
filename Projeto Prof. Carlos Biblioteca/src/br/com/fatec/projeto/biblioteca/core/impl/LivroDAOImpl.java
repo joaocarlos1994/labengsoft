@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Livro;
 import br.com.fatec.projeto.biblioteca.api.service.LivroDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.LivroFactory;
@@ -32,7 +33,7 @@ public class LivroDAOImpl implements LivroDAO{
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + Livro.TABLE + " VALUES (?,?,?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(Livro.TABLE);
 			insert.setLong(1, id);
 			insert.setString(2, livro.getTitulo());
 			insert.setDate(3, new Date(livro.getAnoPublicacao().getTime()));

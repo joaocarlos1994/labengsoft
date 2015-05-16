@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.ItemEmprestimo;
 import br.com.fatec.projeto.biblioteca.api.service.ItemEmprestimoDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.ItemEmprestimoFactory;
@@ -31,7 +32,7 @@ public class ItemEmprestimoDAOImpl implements ItemEmprestimoDAO{
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + ItemEmprestimo.TABLE + " VALUES (?,?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(ItemEmprestimo.TABLE);
 			insert.setLong(1, id);
 			insert.setLong(2, itemEmprestimoDAO.getEmprestimo().getId());
 			insert.setLong(3, itemEmprestimoDAO.getExemplar().getId());

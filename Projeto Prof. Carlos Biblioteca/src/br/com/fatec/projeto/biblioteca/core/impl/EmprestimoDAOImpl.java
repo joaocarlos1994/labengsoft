@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Emprestimo;
 import br.com.fatec.projeto.biblioteca.api.service.EmprestimoDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.EmprestimoFactory;
@@ -32,7 +33,7 @@ public class EmprestimoDAOImpl implements EmprestimoDAO{
 		PreparedStatement insert = null;
 		try {
 			insert = this.connection.prepareStatement("INSERT INTO " + Emprestimo.TABLE + " VALUES (?,?,?,?);");
-			Long id = GeradorIdService.getInstance().nextId();
+			Long id = GeradorIdService.getInstance().getNextId(Emprestimo.TABLE);
 			insert.setLong(1, id);
 			insert.setLong(2, emprestimo.getPessoa().getId());
 			insert.setDate(3, new Date(emprestimo.getDataEmprestimo().getTime()));
