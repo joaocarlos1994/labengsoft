@@ -11,22 +11,23 @@ import java.util.Map;
 
 
 
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class ConfigDBMapper {
 
-	// Instância única para garantir a reutilização das connections
+	// Instância única para garantir a reutilização das configConnections
 	private static ConfigDBMapper instance;
 	// Objeto que irá traduzir os dados do arquivos database.json
 	private static JSONParser parser = new JSONParser();
 	// um class loader para encontrar facilmente o arquivo de config
 	private static final ClassLoader loader = ConfigDBMapper.class.getClassLoader();
-	// Mapa de connections já existentes, permintindo que toda connections,
+	// Mapa de configConnections já existentes, permintindo que toda configConnections,
 	// depois
 	// de devidamente criada, possa ser reutilizada sempre que necessário.
-	private static Map<String, Connection> connections = new HashMap<String, Connection>();
+	private static Map<String, ConfigConnection> configConnections = new HashMap<String, ConfigConnection>();
 	// propriedade utilizada para definir qual será o nome da conexão padrão,
 	// podendo assim variar para teste ou produção
 	private String defaultConnectionName;
@@ -81,11 +82,11 @@ public class ConfigDBMapper {
 		Class.forName(driverClassName);
 		//2 - Criamos uma conexão utilizando os dados obtidos pelo
 		//nosso loader e a colocamos no mapa de conexões.
-		connections.put(configNameJson, DriverManager.getConnection(url, login, password));
+		configConnections.put(configNameJson, new ConfigConnection(configNameJson, url, login, password));
 	}
 	//ára finalizar criamos uma lista de todos os nomes de configs
 	//disponiveis utilizando as 'keys' do mapa
-	this.possibleConfig = new ArrayList<String>(connections.keySet());
+	this.possibleConfig = new ArrayList<String>(configConnections.keySet());
 	
 	} catch (Exception ex ){
 		throw new RuntimeException();
@@ -144,15 +145,21 @@ public class ConfigDBMapper {
 	 * */
 
 	public Connection getConnectionByConfig(String configName) {
-		if (connections.containsKey(configName)) {
-			return connections.get(configName);
+		if (configConnections.containsKey(configName)) {
+			ConfigConnection configConnection =  configConnections.get(configName);
+			try {
+				return DriverManager.getConnection(configConnection.getUrl(), configConnection.getLogin(),
+						configConnection.getPassword());
+			} catch (Exception e) {
+				throw new RuntimeException("Não foi possível geral uma conexão para o Banco de Dados '" + configName + "' .", e);
+			}
 		}
 		throw new RuntimeException("Não existe configuração com nome '"
 				+ configName + "'.");
 	}
 
 	public void AlunoDAOImpl() {
-		this.connections = (Map<String, Connection>) ConfigDBMapper.getInstance().getDefaultConnetion();
+		this.configConnections = (Map<String, ConfigConnection>) ConfigDBMapper.getInstance().getDefaultConnetion();
 		
 	}
 }
