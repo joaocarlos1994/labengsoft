@@ -17,5 +17,15 @@
 	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/json-simple/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/lombok/lombok1164.jar"/>
 	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/FATEC 6 º Semestre/Lab. Eng. Software/João Carlos/LAB-04/apache-tomcat-7.0.59/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/commons-fileupload-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/commons-io-2.2.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/commons-lang3-3.2.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/freemarker-2.3.19.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/javassist-3.11.0.GA.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/ognl-3.0.6.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/struts2-core-2.3.20.jar"/>
+	<classpathentry kind="lib" path="/home/joao/Área de Trabalho/struts/xwork-core-2.3.20.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
