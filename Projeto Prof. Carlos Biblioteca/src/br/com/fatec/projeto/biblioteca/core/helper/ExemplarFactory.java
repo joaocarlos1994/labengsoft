@@ -9,10 +9,15 @@ import br.com.fatec.projeto.biblioteca.api.entity.Exemplar;
 import br.com.fatec.projeto.biblioteca.api.entity.Exemplar;
 import br.com.fatec.projeto.biblioteca.api.entity.Livro;
 import br.com.fatec.projeto.biblioteca.api.service.LivroDAO;
+import br.com.fatec.projeto.biblioteca.core.impl.LivroDAOImpl;
 
 public class ExemplarFactory {
 	
-	private LivroDAO livroDAO;
+	private LivroDAOImpl livroDAOImpl;
+	
+	public ExemplarFactory (){
+		livroDAOImpl = new LivroDAOImpl(); 
+	}
 	
 	public Exemplar createExemplar(Long id, Livro livro, long codigoExemplar){
 		
@@ -28,7 +33,7 @@ public class ExemplarFactory {
 		
 		Exemplar exemplar = new Exemplar();
 		exemplar.setId(id);
-		exemplar.setLivro(livroDAO.findById(id));
+		exemplar.setLivro(livroDAOImpl.findById(id));
 		exemplar.setCodigoExemplar(codigoExemplar);
 		
 		return exemplar;
@@ -39,7 +44,7 @@ public class ExemplarFactory {
 			return this.createExemplar(resultado.getLong(Exemplar.COL_ID), resultado.getLong(Exemplar.COL_LIVRO), 
 					resultado.getLong(Exemplar.COL_EXEMPLAR));
 		} catch (SQLException e) {
-			throw new RuntimeException("resultado não inicializado");
+			throw new RuntimeException("resultado não inicializado", e);
 		}
 	}
 

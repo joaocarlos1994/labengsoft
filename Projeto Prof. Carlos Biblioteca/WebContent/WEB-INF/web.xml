@@ -46,6 +46,11 @@
 	<!-- Mapeamento de servlet -->
 
 	<servlet>
+		<servlet-name>ConfigDBServlet</servlet-name>
+		<servlet-class>br.com.fatec.projeto.biblioteca.web.listener.ConfigDBServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>helloWorld</servlet-name>
 		<servlet-class>br.com.fatec.projeto.biblioteca.web.servlet.HelloWorldServelet</servlet-class>
 	</servlet>

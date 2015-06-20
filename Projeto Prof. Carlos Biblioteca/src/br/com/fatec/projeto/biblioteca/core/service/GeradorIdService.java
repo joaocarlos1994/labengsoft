@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
+
 /**
  * @author Carlos
  *
@@ -29,6 +31,7 @@ public class GeradorIdService {
 	
 	public synchronized Long getNextId(String tableName){
 		try {
+			connection = ConfigDBMapper.getInstance().getDefaultConnetion();
 			//Iremos cosiderar essa table no SQL que irá retorna o NEXT_ID
 			PreparedStatement query = connection.prepareStatement("SELECT NEXT_ID FROM FATEC_IDS WHERE TABLE_NAME = ?;");
 			query.setString(1, tableName); //Não se esqueça de fazer o set da tableName
@@ -38,7 +41,7 @@ public class GeradorIdService {
 			//Agora iremos atualizar o valor do NEXT_ID na Tabela, também utilizando o tableName
 			PreparedStatement updateID = connection.prepareStatement("UPDATE FATEC_IDS SET NEXT_ID = ? WHERE TABLE_NAME = ?;");
 			updateID.setLong(1, idSequence + 1);
-			updateID.setString(1, tableName);
+			updateID.setString(2, tableName);
 			updateID.execute();
 			updateID.close();
 			return idSequence;

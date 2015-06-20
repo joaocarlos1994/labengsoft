@@ -12,6 +12,8 @@ import liquibase.resource.ClassLoaderResourceAccessor;
 import org.junit.After;
 import org.junit.Before;
 
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
+
 /**
  * @author Carlos
  *
@@ -21,9 +23,10 @@ public abstract class ConfigDBTestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		Connection conn = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
+		ConfigDBMapper.getInstance().setDefaultConnectionName("fatec");
+		Connection conn = ConfigDBMapper.getInstance().getDefaultConnetion();
 		Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(conn));
-		Liquibase liquibase = new Liquibase("br/com/fatec/projeto/biblioteca/liquibase/changelog-master.xml",
+		Liquibase liquibase = new Liquibase("br/com/fatec/projeto/biblioteca/liquibase/changelog-master-teste.xml",
 				new ClassLoaderResourceAccessor(), database);
 		liquibase.forceReleaseLocks();
 		liquibase.update("fatec");
@@ -31,7 +34,7 @@ public abstract class ConfigDBTestCase {
 
 	@After
 	public void setDown() throws Exception {
-		Connection conn = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
+		Connection conn = ConfigDBMapper.getInstance().getDefaultConnetion();
 		conn.prepareStatement("DROP SCHEMA PUBLIC CASCADE;").execute();
 		conn.close();
 	}

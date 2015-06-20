@@ -14,7 +14,7 @@ public class Livro {
 	/** */
 	public static final String COL_ANO_PUBLICACAO = "PUBLICACAO";
 	/** */
-	public static final String COL_EDITORA = "EDITORA";
+	public static final String COL_EDITORA = "EDITORA_ID";
 	/** */
 	
 	private Long id;

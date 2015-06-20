@@ -1,14 +1,9 @@
+[
 {
-	"name": "fatec-test",
+	"name": "fatec",
 	"url": "jdbc:hsqldb:mem:test",
 	"login": "sa",
 	"password": "",
 	"driverClassName": "org.hsqldb.jdbcDriver"
-},
-{
-	"name": "fatec-prod",
-	"url": "jdbc:postgresql://localhost:8080/fatec",
-	"login": "fatec",
-	"password": "fatec",
-	"driverClassName": "org.postgresql.Driver"
 }
+]

@@ -91,6 +91,7 @@
 	<changeSet id="007" author="carlos.oliveira">
 		<createTable tableName="FATEC_DEVOLUCAO">
 			<column name="ID" type="java.sql.Types.BIGINT" />
+			<column name="DATA_DEVOLUCAO" type="java.sql.Types.DATE" />
 			<column name="EXEMPLAR_ID" type="java.sql.Types.BIGINT" />
 			<column name="EMPRESTIMO_ID" type="java.sql.Types.BIGINT" />
 		</createTable>

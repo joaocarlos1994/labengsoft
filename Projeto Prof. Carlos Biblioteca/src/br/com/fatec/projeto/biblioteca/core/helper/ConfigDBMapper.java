@@ -37,7 +37,8 @@ public class ConfigDBMapper {
 	
 	public static ConfigDBMapper getInstance(){
 		if(instance == null){
-			return instance = new ConfigDBMapper();
+			instance = new ConfigDBMapper();
+			instance.loadConnections();
 		}
 		return instance;
 	}
@@ -50,7 +51,7 @@ public class ConfigDBMapper {
 	//arquivo de configurações. Para isso vamos utilizar nosso 'loader'
 	//para pegar o 'path' do mesmo.
 	
-	String path = loader.getResource("br/com/fatec/projeto/biblioteca/core/config/databases.json").getPath();
+	String path = System.getProperty("user.dir")+"/src/br/com/fatec/projeto/biblioteca/core/config/databases.json";
 	//Com 'path em mãos iremos converter, fazer 'parse', de seu
 	//contéudo para o objeto JSONArray, já que o arquivo começa
 	//com '[...]', ou seja, o arquivo é um array
@@ -89,7 +90,7 @@ public class ConfigDBMapper {
 	this.possibleConfig = new ArrayList<String>(configConnections.keySet());
 	
 	} catch (Exception ex ){
-		throw new RuntimeException();
+		throw new RuntimeException(ex);
 	}
 	
 	}
@@ -106,7 +107,7 @@ public class ConfigDBMapper {
 	 * */
 
 	public void setDefaultConnectionName(String config) {
-		if (this.defaultConnectionName == null && config == "") {
+		if (this.defaultConnectionName == null && config != "" && config != null) {
 			if (this.possibleConfig.contains(config)) {
 				this.defaultConnectionName = config;
 			} else {

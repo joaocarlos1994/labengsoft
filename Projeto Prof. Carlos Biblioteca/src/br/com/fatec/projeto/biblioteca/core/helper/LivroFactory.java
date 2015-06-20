@@ -10,10 +10,15 @@ import br.com.fatec.projeto.biblioteca.api.entity.Editora;
 import br.com.fatec.projeto.biblioteca.api.entity.Livro;
 import br.com.fatec.projeto.biblioteca.api.entity.Livro;
 import br.com.fatec.projeto.biblioteca.api.service.EditoraDAO;
+import br.com.fatec.projeto.biblioteca.core.impl.EditoraDAOImpl;
 
 public class LivroFactory {
 	
-	private EditoraDAO editoraDAO;
+	private EditoraDAOImpl editoraDAOImpl;
+	
+	public LivroFactory(){
+		editoraDAOImpl = new EditoraDAOImpl();
+	}
 	
 	public Livro createLivro(Long id, String titulo, long edicao, 
 			Date anoPublicacao, Editora editora){
@@ -34,7 +39,7 @@ public class LivroFactory {
 		livro.setTitulo(titulo);
 		livro.setEdicao(edicao);
 		livro.setAnoPublicacao(anoPublicacao);
-		livro.setEditora(editoraDAO.findById(editoraId));
+		livro.setEditora(editoraDAOImpl.findById(editoraId));
 		
 		return livro;
 	}
@@ -45,7 +50,7 @@ public class LivroFactory {
 					resultado.getLong(Livro.COL_EDICAO), resultado.getDate(Livro.COL_ANO_PUBLICACAO),
 					resultado.getLong(Livro.COL_EDITORA));
 		} catch (SQLException e) {
-			throw new RuntimeException("resultado não inicializado");
+			throw new RuntimeException("resultado não inicializado", e);
 		}
 	}
 

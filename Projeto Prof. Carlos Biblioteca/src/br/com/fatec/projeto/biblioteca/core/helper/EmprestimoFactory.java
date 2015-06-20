@@ -10,10 +10,15 @@ import br.com.fatec.projeto.biblioteca.api.entity.Emprestimo;
 import br.com.fatec.projeto.biblioteca.api.entity.Emprestimo;
 import br.com.fatec.projeto.biblioteca.api.entity.Pessoa;
 import br.com.fatec.projeto.biblioteca.api.service.AlunoDAO;
+import br.com.fatec.projeto.biblioteca.core.impl.AlunoDAOImpl;
 
 public class EmprestimoFactory {
 	
-	private AlunoDAO alunoDAO;
+	private AlunoDAOImpl alunoDAOImpl;
+	
+	public EmprestimoFactory(){
+		alunoDAOImpl = new AlunoDAOImpl();
+	}
 	
 	public  Emprestimo createEmprestimo(Long id, Pessoa pessoa, Date dataEmprestimo, 
 			Date dataEntrega){
@@ -32,7 +37,7 @@ public class EmprestimoFactory {
 		
 		Emprestimo emprestimo = new Emprestimo();
 		emprestimo.setId(id);
-		emprestimo.setPessoa(alunoDAO.findById(pessoaId));
+		emprestimo.setPessoa(alunoDAOImpl.findById(pessoaId));
 		emprestimo.setDataEmprestimo(dataEmprestimo);
 		emprestimo.setDataEntrega(dataEntrega);
 		
@@ -44,7 +49,7 @@ public class EmprestimoFactory {
 			return this.createEmprestimo(resultado.getLong(Emprestimo.COL_ID), resultado.getLong(Emprestimo.COL_PESSOA),
 					resultado.getDate(Emprestimo.COL_EMPRESTIMO), resultado.getDate(Emprestimo.COL_ENTREGA));
 		} catch (SQLException e) {
-			throw new RuntimeException("resultado não inicializado");
+			throw new RuntimeException("resultado não inicializado", e);
 		}
 	}
 

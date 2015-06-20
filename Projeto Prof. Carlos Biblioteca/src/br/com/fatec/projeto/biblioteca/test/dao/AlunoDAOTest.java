@@ -1,5 +1,6 @@
 package br.com.fatec.projeto.biblioteca.test.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

@@ -13,6 +13,7 @@ import br.com.fatec.projeto.biblioteca.api.entity.Devolucao;
 import br.com.fatec.projeto.biblioteca.api.service.DevolucaoDAO;
 import br.com.fatec.projeto.biblioteca.api.service.EmprestimoDAO;
 import br.com.fatec.projeto.biblioteca.api.service.ExemplarDAO;
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
 import br.com.fatec.projeto.biblioteca.core.helper.DevolucaoFactory;
 import br.com.fatec.projeto.biblioteca.core.service.GeradorIdService;
 
@@ -25,11 +26,7 @@ public class DevolucaoDAOImpl implements DevolucaoDAO{
 
 	public DevolucaoDAOImpl() {
 		this.devolucaoFactory = new DevolucaoFactory();
-		try {
-			this.connection = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
-		} catch (SQLException e) {
-			throw new RuntimeException("erro ao gerar conexão", e);
-		}
+		this.connection = ConfigDBMapper.getInstance().getDefaultConnetion();
 	}
 
 	@Override

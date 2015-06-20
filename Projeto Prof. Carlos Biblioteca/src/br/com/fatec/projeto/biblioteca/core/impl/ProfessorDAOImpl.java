@@ -11,6 +11,7 @@ import java.util.List;
 import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Professor;
 import br.com.fatec.projeto.biblioteca.api.service.ProfessorDAO;
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
 import br.com.fatec.projeto.biblioteca.core.helper.ProfessorFactory;
 import br.com.fatec.projeto.biblioteca.core.service.GeradorIdService;
 
@@ -21,11 +22,7 @@ public class ProfessorDAOImpl implements ProfessorDAO{
 	
 	public ProfessorDAOImpl() {
 		this.professorFactory = new ProfessorFactory();
-		try {
-			this.connection = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
-		} catch (SQLException e) {
-			throw new RuntimeException("erro ao gerar conexão", e);
-		}
+		this.connection = ConfigDBMapper.getInstance().getDefaultConnetion();
 	}
 	
 	@Override

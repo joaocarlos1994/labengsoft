@@ -11,6 +11,7 @@ import java.util.List;
 import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Livro;
 import br.com.fatec.projeto.biblioteca.api.service.LivroDAO;
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
 import br.com.fatec.projeto.biblioteca.core.helper.LivroFactory;
 import br.com.fatec.projeto.biblioteca.core.service.GeradorIdService;
 
@@ -21,11 +22,7 @@ public class LivroDAOImpl implements LivroDAO{
 
 	public LivroDAOImpl() {
 		this.livroFactory = new LivroFactory();
-		try {
-			this.connection = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
-		} catch (SQLException e) {
-			throw new RuntimeException("erro ao gerar conexão", e);
-		}
+		this.connection = ConfigDBMapper.getInstance().getDefaultConnetion();
 	}
 
 	@Override

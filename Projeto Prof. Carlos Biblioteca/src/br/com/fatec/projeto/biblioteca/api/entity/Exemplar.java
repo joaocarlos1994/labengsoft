@@ -6,9 +6,9 @@ public class Exemplar {
 	/** */
 	public static final String COL_ID = "ID";
 	/** */
-	public static final String COL_LIVRO = "LIVRO";
+	public static final String COL_LIVRO = "LIVRO_ID";
 	/** */
-	public static final String COL_EXEMPLAR = "EXEMPLAR";
+	public static final String COL_EXEMPLAR = "NUMERO_EXEMPLAR";
 	
 	private Long id;
 	private Livro livro;

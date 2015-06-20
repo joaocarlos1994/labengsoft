@@ -5,5 +5,7 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
 	<include file="2015_04_24-001.xml" relativeToChangelogFile="true"/>
+	<include file="2015_05_15-002.xml" relativeToChangelogFile="true"/>
+	<include file="insert-table-id.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

@@ -11,31 +11,38 @@ import org.junit.Test;
 import br.com.fatec.projeto.biblioteca.api.entity.Devolucao;
 import br.com.fatec.projeto.biblioteca.api.service.DevolucaoDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.DevolucaoFactory;
+import br.com.fatec.projeto.biblioteca.core.helper.EditoraFactory;
 import br.com.fatec.projeto.biblioteca.core.helper.EmprestimoFactory;
 import br.com.fatec.projeto.biblioteca.core.helper.ExemplarFactory;
+import br.com.fatec.projeto.biblioteca.core.helper.LivroFactory;
 import br.com.fatec.projeto.biblioteca.core.impl.DevolucaoDAOImpl;
-import br.com.fatec.projeto.biblioteca.test.commons.ConfigDBTestCase;
+import br.com.fatec.projeto.biblioteca.core.impl.EmprestimoDAOImpl;
+import br.com.fatec.projeto.biblioteca.core.impl.ExemplarDAOImpl;
+import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 
-public class DevolucaoDAOTest extends ConfigDBTestCase{
+public class DevolucaoDAOTest extends ConfigCenarioTestCase{
 	
 	private DevolucaoDAO devolucaoDAO;
 	private DevolucaoFactory devolucaoFactory;
 	private Devolucao devolucao;
-	private ExemplarFactory exemplarFactory;
-	private EmprestimoFactory emprestimoFactory;
+	private ExemplarDAOImpl exemplarDAOImpl;
+	private EmprestimoDAOImpl emprestimoDAOImpl;
 
 	@Before
 	public void config() {
 		this.devolucaoDAO = new DevolucaoDAOImpl();
 		this.devolucaoFactory = new DevolucaoFactory();
+		this.exemplarDAOImpl = new ExemplarDAOImpl();
+		this.emprestimoDAOImpl = new EmprestimoDAOImpl();
 	}
 
 	@Test
 	public void saveDevolucaoTest() {
+		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, 5, 2);
-
-		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), devolucao.getExemplar().getId(), devolucao.getEmprestimo().getId());
+		
+		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
 		Devolucao savedDevolucao = this.devolucaoDAO.save(devolucaoToSave);
 
 		assertDevolucao(devolucaoToSave, savedDevolucao);
@@ -44,13 +51,13 @@ public class DevolucaoDAOTest extends ConfigDBTestCase{
 	@Test
 	public void findAllTest() {
 		Calendar calendar = Calendar.getInstance();
-
+		
 		calendar.set(1991, 5, 2);
-		Devolucao devolucaoToSave1 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), devolucao.getExemplar().getId(), devolucao.getEmprestimo().getId());
+		Devolucao devolucaoToSave1 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
 		calendar.set(1991, 5, 3);
-		Devolucao devolucaoToSave2 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), devolucao.getExemplar().getId(), devolucao.getEmprestimo().getId());
+		Devolucao devolucaoToSave2 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
 		calendar.set(1991, 5, 4);
-		Devolucao devolucaoToSave3 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), devolucao.getExemplar().getId(), devolucao.getEmprestimo().getId());
+		Devolucao devolucaoToSave3 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
 
 		List<Devolucao> expectedDevolucaos = new ArrayList<Devolucao>();
 		expectedDevolucaos.add(this.devolucaoDAO.save(devolucaoToSave1));
@@ -67,7 +74,7 @@ public class DevolucaoDAOTest extends ConfigDBTestCase{
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, 5, 2);
 
-		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), devolucao.getExemplar().getId(), devolucao.getEmprestimo().getId());
+		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
 		Devolucao savedDevolucao = this.devolucaoDAO.save(devolucaoToSave);
 
 		assertDevolucao(devolucaoToSave, savedDevolucao);
@@ -81,7 +88,7 @@ public class DevolucaoDAOTest extends ConfigDBTestCase{
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, 5, 2);
 
-		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), devolucao.getExemplar().getId(), devolucao.getEmprestimo().getId());
+		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
 		Devolucao savedDevolucao = this.devolucaoDAO.save(devolucaoToSave);
 
 		assertDevolucao(devolucaoToSave, savedDevolucao);

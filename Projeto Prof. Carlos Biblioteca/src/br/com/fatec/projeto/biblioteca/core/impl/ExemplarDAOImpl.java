@@ -10,6 +10,7 @@ import java.util.List;
 import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Exemplar;
 import br.com.fatec.projeto.biblioteca.api.service.ExemplarDAO;
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
 import br.com.fatec.projeto.biblioteca.core.helper.ExemplarFactory;
 import br.com.fatec.projeto.biblioteca.core.service.GeradorIdService;
 
@@ -20,11 +21,7 @@ public class ExemplarDAOImpl implements ExemplarDAO{
 
 	public ExemplarDAOImpl() {
 		this.exemplarFactory = new ExemplarFactory();
-		try {
-			this.connection = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
-		} catch (SQLException e) {
-			throw new RuntimeException("erro ao gerar conexão", e);
-		}
+		this.connection = ConfigDBMapper.getInstance().getDefaultConnetion();
 	}
 
 	@Override

@@ -1,12 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="fatec" tagdir="/WEB-INF/tags"%>
+<fatec:genericpage title="Cadastro de Alunos">
+	<jsp:attribute name="body">
+	
+		<h3>Registro de Alunos</h3>
+	
+		<div class="container">
+			<div class="row clearfix">
+			<div class="col-md-12 column">
+				<form role="form" formaction="Alunos!registerAluno">
+				
+					
+					<div class="form-group">
+						<input type="text" class="form-control" name="id" visible="false" />
+					</div>
+					
+					<div class="form-group">
+						<label id="lblNome">Nome:</label>
+						<input type="text" class="form-control" name="nome" />
+					</div>
+					
+					<div class="form-group">
+						<label id="lblRg">RG:</label>
+						<input type="text" class="form-control" name="rg" />
+					</div>
+					
+					<div class="form-group">
+						<label id="lblRa">RA:</label>
+						<input type="text" class="form-control" name="email1" />
+					</div>
 
-</body>
-</html>
+				
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</div>
+			</div>
+		</div>
+	</jsp:attribute>
+</fatec:genericpage>

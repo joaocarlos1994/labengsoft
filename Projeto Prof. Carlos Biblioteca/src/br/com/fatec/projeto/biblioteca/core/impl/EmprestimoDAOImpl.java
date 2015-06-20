@@ -11,6 +11,7 @@ import java.util.List;
 import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.entity.Emprestimo;
 import br.com.fatec.projeto.biblioteca.api.service.EmprestimoDAO;
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
 import br.com.fatec.projeto.biblioteca.core.helper.EmprestimoFactory;
 import br.com.fatec.projeto.biblioteca.core.service.GeradorIdService;
 
@@ -21,11 +22,7 @@ public class EmprestimoDAOImpl implements EmprestimoDAO{
 
 	public EmprestimoDAOImpl() {
 		this.emprestimoFactory = new EmprestimoFactory();
-		try {
-			this.connection = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
-		} catch (SQLException e) {
-			throw new RuntimeException("erro ao gerar conexão", e);
-		}
+		this.connection = ConfigDBMapper.getInstance().getDefaultConnetion();
 	}
 
 	@Override

@@ -12,11 +12,13 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Before;
 
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
+
 public class ConfigCenarioTestCase extends ConfigDBTestCase {
 
 	@Before
 	public void upCenario() throws Exception {
-		Connection jdbcConnection = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
+		Connection jdbcConnection = ConfigDBMapper.getInstance().getDefaultConnetion();
 		IDatabaseConnection conn = new DatabaseConnection(jdbcConnection);
 
 		ClassLoader classLoader = this.getClass().getClassLoader();

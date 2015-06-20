@@ -10,6 +10,7 @@ import java.util.List;
 import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.service.AlunoDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.AlunoFactory;
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
 import br.com.fatec.projeto.biblioteca.core.service.GeradorIdService;
 
 public class AlunoDAOImpl implements AlunoDAO {
@@ -19,11 +20,7 @@ public class AlunoDAOImpl implements AlunoDAO {
 
 	public AlunoDAOImpl() {
 		this.alunoFactory = new AlunoFactory();
-		try {
-			this.connection = DriverManager.getConnection("jdbc:hsqldb:mem:fatec", "sa", "");
-		} catch (SQLException e) {
-			throw new RuntimeException("erro ao gerar conexão", e);
-		}
+		this.connection = ConfigDBMapper.getInstance().getDefaultConnetion();
 	}
 
 	@Override

@@ -18,48 +18,4 @@
 
 	</changeSet>
 
-	<changeSet id="02" author="carlos.oliveira">
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">FATEC_ALUNO</column>
-			<column name="1">1</column>
-		</insert>
-
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">FATEC_PROFESSOR</column>
-			<column name="1">1</column>
-		</insert>
-
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">EDITORA</column>
-			<column name="1">1</column>
-		</insert>
-
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">FATEC_LIVRO</column>
-			<column name="1">1</column>
-		</insert>
-
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">FATEC_EXEMPLAR</column>
-			<column name="1">1</column>
-		</insert>
-
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">FATEC_EMPRESTIMO</column>
-			<column name="1">1</column>
-		</insert>
-
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">FATEC_DEVOLUCAO</column>
-			<column name="1">1</column>
-		</insert>
-
-		<insert tableName="FATEC_IDS">
-			<column name="TABLE_NAME">FATEC_ITEM_EMPRESTIMO</column>
-			<column name="1">1</column>
-		</insert>
-		
-		
-	</changeSet>
-
 </databaseChangeLog>
