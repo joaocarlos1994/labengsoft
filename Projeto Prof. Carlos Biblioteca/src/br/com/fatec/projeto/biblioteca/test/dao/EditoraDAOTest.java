@@ -12,23 +12,24 @@ import br.com.fatec.projeto.biblioteca.api.service.EditoraDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.EditoraFactory;
 import br.com.fatec.projeto.biblioteca.core.impl.EditoraDAOImpl;
 import br.com.fatec.projeto.biblioteca.core.service.GeradorIdService;
+import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 import br.com.fatec.projeto.biblioteca.test.commons.ConfigDBTestCase;
 
-public class EditoraDAOTest extends ConfigDBTestCase{
+public class EditoraDAOTest extends ConfigCenarioTestCase{
 	
 	private EditoraDAO editoraDAO;
-	private EditoraFactory editoraFactory;
+	private EditoraDAOImpl editoraDAOImpl;
 
 	@Before
 	public void config() {
 		this.editoraDAO = new EditoraDAOImpl();
-		this.editoraFactory = new EditoraFactory();
+		this.editoraDAOImpl = new EditoraDAOImpl();
 	}
 
 	@Test
 	public void saveEditoraTest() {
 		
-		Editora editoraToSave = this.editoraFactory.createEditora(null, "Novatec", "Tecnologia");
+		Editora editoraToSave = this.editoraDAOImpl.findById(1L);
 		Editora savedEditora = this.editoraDAO.save(editoraToSave);
 
 		assertEditora(editoraToSave, savedEditora);
@@ -37,18 +38,18 @@ public class EditoraDAOTest extends ConfigDBTestCase{
 	@Test
 	public void findAllTest() {
 		
-		Editora editoraToSave1 = this.editoraFactory.createEditora(null, "Novatec1", "Tecnologia1");
+		Editora editoraToSave1 = this.editoraDAOImpl.findById(1L);
 		
 		
-		Editora editoraToSave2 = this.editoraFactory.createEditora(null, "Novatec2", "Tecnologia2");
+		Editora editoraToSave2 = this.editoraDAOImpl.findById(2L);
 		
 		
-		Editora editoraToSave3 = this.editoraFactory.createEditora(null, "Novatec3", "Tecnologia3");
+		Editora editoraToSave3 = this.editoraDAOImpl.findById(3L);
 
 		List<Editora> expectedEditoras = new ArrayList<Editora>();
-		expectedEditoras.add(this.editoraDAO.save(editoraToSave1));
-		expectedEditoras.add(this.editoraDAO.save(editoraToSave2));
-		expectedEditoras.add(this.editoraDAO.save(editoraToSave3));
+		expectedEditoras.add(editoraToSave1);
+		expectedEditoras.add(editoraToSave2);
+		expectedEditoras.add(editoraToSave3);
 
 		List<Editora> encontrados = this.editoraDAO.findAll();
 
@@ -58,7 +59,7 @@ public class EditoraDAOTest extends ConfigDBTestCase{
 	@Test
 	public void removeEditoraTest() {
 		
-		Editora editoraToSave = this.editoraFactory.createEditora(null, "Novatec", "Tecnologia");
+		Editora editoraToSave = this.editoraDAOImpl.findById(1L);
 		Editora savedEditora = this.editoraDAO.save(editoraToSave);
 
 		assertEditora(editoraToSave, savedEditora);
@@ -70,7 +71,7 @@ public class EditoraDAOTest extends ConfigDBTestCase{
 	@Test
 	public void updateEditoraTest() {
 		
-		Editora editoraToSave = this.editoraFactory.createEditora(null, "Novatec", "Tecnologia");
+		Editora editoraToSave = this.editoraDAOImpl.findById(1L);
 		Editora savedEditora = this.editoraDAO.save(editoraToSave);
 
 		assertEditora(editoraToSave, savedEditora);

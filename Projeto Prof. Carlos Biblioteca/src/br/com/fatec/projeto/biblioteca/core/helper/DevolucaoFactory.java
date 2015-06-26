@@ -13,11 +13,19 @@ import br.com.fatec.projeto.biblioteca.api.service.DevolucaoDAO;
 import br.com.fatec.projeto.biblioteca.api.service.EmprestimoDAO;
 import br.com.fatec.projeto.biblioteca.api.service.ExemplarDAO;
 import br.com.fatec.projeto.biblioteca.core.impl.DevolucaoDAOImpl;
+import br.com.fatec.projeto.biblioteca.core.impl.EmprestimoDAOImpl;
+import br.com.fatec.projeto.biblioteca.core.impl.ExemplarDAOImpl;
 
 public class DevolucaoFactory {
 	
-	private ExemplarDAO exemplarDAO;
-	private EmprestimoDAO emprestimoDAO;
+	private ExemplarDAOImpl exemplarDAOImpl;
+	private EmprestimoDAOImpl emprestimoDAOImpl;
+	
+	public DevolucaoFactory(){
+		exemplarDAOImpl = new ExemplarDAOImpl();
+		emprestimoDAOImpl = new EmprestimoDAOImpl();
+	}
+	
 
 	public Devolucao createDevolucao(Long id, Date dataDevolucao,
 			Exemplar exemplar, Emprestimo emprestimo) {
@@ -37,8 +45,8 @@ public class DevolucaoFactory {
 		Devolucao devolucao = new Devolucao();
 		devolucao.setId(id);
 		devolucao.setDataDevolucao(dataDevolucao);
-		devolucao.setExemplar(exemplarDAO.findById(emprestimoId));
-		devolucao.setEmprestimo(emprestimoDAO.findById(emprestimoId));
+		devolucao.setExemplar(exemplarDAOImpl.findById(emprestimoId));
+		devolucao.setEmprestimo(emprestimoDAOImpl.findById(emprestimoId));
 
 		return devolucao;
 	}
@@ -50,7 +58,7 @@ public class DevolucaoFactory {
 					resultado.getLong(Devolucao.COL_EXEMPLAR),
 					resultado.getLong(Devolucao.COL_EMPRESTIMO));
 		} catch (SQLException e) {
-			throw new RuntimeException("resultado não inicializado");
+			throw new RuntimeException("resultado não inicializado", e);
 		}
 	}
 

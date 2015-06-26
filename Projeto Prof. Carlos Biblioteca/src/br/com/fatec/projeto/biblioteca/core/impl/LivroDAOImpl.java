@@ -29,12 +29,13 @@ public class LivroDAOImpl implements LivroDAO{
 	public Livro save(Livro livro) {
 		PreparedStatement insert = null;
 		try {
-			insert = this.connection.prepareStatement("INSERT INTO " + Livro.TABLE + " VALUES (?,?,?,?);");
+			insert = this.connection.prepareStatement("INSERT INTO " + Livro.TABLE + " VALUES (?,?,?,?,?);");
 			Long id = GeradorIdService.getInstance().getNextId(Livro.TABLE);
 			insert.setLong(1, id);
 			insert.setString(2, livro.getTitulo());
-			insert.setDate(3, new Date(livro.getAnoPublicacao().getTime()));
-			insert.setLong(4, livro.getEditora().getId());
+			insert.setLong(3, livro.getEdicao());
+			insert.setDate(4, new Date(livro.getAnoPublicacao().getTime()));
+			insert.setLong(5, livro.getEditora().getId());
 			insert.execute();
 			return this.findById(id);
 		} catch (SQLException e) {
@@ -96,11 +97,10 @@ public class LivroDAOImpl implements LivroDAO{
 		PreparedStatement update = null;
 		try {
 			update = this.connection.prepareStatement("UPDATE " + Livro.TABLE + " SET " + Livro.COL_TITULO + " = ?, "
-					+ Livro.COL_EDICAO + " = ?, " + Livro.COL_ANO_PUBLICACAO + " = ?" + Livro.COL_EDITORA + " = ?;");
+					+ Livro.COL_EDICAO + " = ?, " + Livro.COL_ANO_PUBLICACAO + " = ?");
 			update.setString(1, livro.getTitulo());
 			update.setLong(2, livro.getEdicao());
 			update.setDate(3, new Date(livro.getAnoPublicacao().getTime()));
-			update.setLong(4, livro.getEditora().getId());
 			update.execute();
 			return this.findById(livro.getId());
 		} catch (SQLException e) {

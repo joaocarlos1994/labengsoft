@@ -12,7 +12,7 @@ public class Exemplar {
 	
 	private Long id;
 	private Livro livro;
-	private long codigoExemplar;
+	private long exemplar;
 	
 	public Long getId() {
 		return id;
@@ -27,10 +27,10 @@ public class Exemplar {
 		this.livro = livro;
 	}
 	public long getCodigoExemplar() {
-		return codigoExemplar;
+		return exemplar;
 	}
-	public void setCodigoExemplar(long codigoExemplar) {
-		this.codigoExemplar = codigoExemplar;
+	public void setCodigoExemplar(long exemplar) {
+		this.exemplar = exemplar;
 	}
 	
 	

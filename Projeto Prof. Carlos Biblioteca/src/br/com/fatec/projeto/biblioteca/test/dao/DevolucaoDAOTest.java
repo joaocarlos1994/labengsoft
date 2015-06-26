@@ -23,26 +23,19 @@ import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 public class DevolucaoDAOTest extends ConfigCenarioTestCase{
 	
 	private DevolucaoDAO devolucaoDAO;
-	private DevolucaoFactory devolucaoFactory;
-	private Devolucao devolucao;
-	private ExemplarDAOImpl exemplarDAOImpl;
-	private EmprestimoDAOImpl emprestimoDAOImpl;
+	private DevolucaoDAOImpl devolucaoDAOImpl;
+
 
 	@Before
 	public void config() {
 		this.devolucaoDAO = new DevolucaoDAOImpl();
-		this.devolucaoFactory = new DevolucaoFactory();
-		this.exemplarDAOImpl = new ExemplarDAOImpl();
-		this.emprestimoDAOImpl = new EmprestimoDAOImpl();
+		this.devolucaoDAOImpl = new DevolucaoDAOImpl();
 	}
 
 	@Test
 	public void saveDevolucaoTest() {
 		
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-		
-		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
+		Devolucao devolucaoToSave = devolucaoDAOImpl.findById(1L);
 		Devolucao savedDevolucao = this.devolucaoDAO.save(devolucaoToSave);
 
 		assertDevolucao(devolucaoToSave, savedDevolucao);
@@ -50,19 +43,18 @@ public class DevolucaoDAOTest extends ConfigCenarioTestCase{
 
 	@Test
 	public void findAllTest() {
-		Calendar calendar = Calendar.getInstance();
 		
-		calendar.set(1991, 5, 2);
-		Devolucao devolucaoToSave1 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
-		calendar.set(1991, 5, 3);
-		Devolucao devolucaoToSave2 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
-		calendar.set(1991, 5, 4);
-		Devolucao devolucaoToSave3 = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
+		Devolucao devolucaoToSave1 = devolucaoDAOImpl.findById(1L);
+		
+		Devolucao devolucaoToSave2 = devolucaoDAOImpl.findById(2L);
+		
+		Devolucao devolucaoToSave3 = devolucaoDAOImpl.findById(3L);
 
 		List<Devolucao> expectedDevolucaos = new ArrayList<Devolucao>();
-		expectedDevolucaos.add(this.devolucaoDAO.save(devolucaoToSave1));
-		expectedDevolucaos.add(this.devolucaoDAO.save(devolucaoToSave2));
-		expectedDevolucaos.add(this.devolucaoDAO.save(devolucaoToSave3));
+		
+		expectedDevolucaos.add(devolucaoToSave1);
+		expectedDevolucaos.add(devolucaoToSave2);
+		expectedDevolucaos.add(devolucaoToSave3);
 
 		List<Devolucao> encontrados = this.devolucaoDAO.findAll();
 
@@ -74,7 +66,7 @@ public class DevolucaoDAOTest extends ConfigCenarioTestCase{
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, 5, 2);
 
-		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
+		Devolucao devolucaoToSave = devolucaoDAOImpl.findById(1L);
 		Devolucao savedDevolucao = this.devolucaoDAO.save(devolucaoToSave);
 
 		assertDevolucao(devolucaoToSave, savedDevolucao);
@@ -85,17 +77,11 @@ public class DevolucaoDAOTest extends ConfigCenarioTestCase{
 
 	@Test
 	public void updateDevolucaoTest() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-
-		Devolucao devolucaoToSave = this.devolucaoFactory.createDevolucao(null, calendar.getTime(), exemplarDAOImpl.findById(1L), emprestimoDAOImpl.findById(1L));
+		
+		Devolucao devolucaoToSave = devolucaoDAOImpl.findById(1L);
 		Devolucao savedDevolucao = this.devolucaoDAO.save(devolucaoToSave);
 
 		assertDevolucao(devolucaoToSave, savedDevolucao);
-		
-		calendar.set(2015, 4, 27); //Settando data diferente
-		
-		savedDevolucao.setDataDevolucao(calendar.getTime());
 
 		Devolucao updatedDevolucao = this.devolucaoDAO.update(savedDevolucao);
 

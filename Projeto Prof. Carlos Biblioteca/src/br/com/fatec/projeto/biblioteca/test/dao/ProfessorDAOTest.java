@@ -16,58 +16,58 @@ import br.com.fatec.projeto.biblioteca.core.helper.AlunoFactory;
 import br.com.fatec.projeto.biblioteca.core.helper.ProfessorFactory;
 import br.com.fatec.projeto.biblioteca.core.impl.AlunoDAOImpl;
 import br.com.fatec.projeto.biblioteca.core.impl.ProfessorDAOImpl;
+import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 import br.com.fatec.projeto.biblioteca.test.commons.ConfigDBTestCase;
 import br.com.fatec.projeto.biblioteca.test.commons.CustomAsserts;
 
-public class ProfessorDAOTest extends ConfigDBTestCase{
-	
-	private ProfessorFactory professorFactory;
+public class ProfessorDAOTest extends ConfigCenarioTestCase {
+
+	private ProfessorDAOImpl professorDAOImpl;
 	private ProfessorDAO professorDAO;
-	
+
 	@Before
 	public void config() {
 		this.professorDAO = new ProfessorDAOImpl();
-		this.professorFactory = new ProfessorFactory();
+		this.professorDAOImpl = new ProfessorDAOImpl();
 	}
-	
+
 	@Test
-	public void savedProfessorTest(){
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-		
-		Professor professorToSave = professorFactory.createProfessor(null, "Carlos Lab. Eng. Soft.", "9999999", "5555555");
+	public void savedProfessorTest() {
+
+		Professor professorToSave = this.professorDAOImpl.findById(1L);
 		Professor savedProfessor = professorDAO.save(professorToSave);
-		
+
 		assertProfessor(professorToSave, savedProfessor);
 	}
-	
+
 	@Test
 	public void findAllTest() {
-		Calendar calendar = Calendar.getInstance();
+		
+		Professor professorToSave0 = this.professorDAOImpl.findById(0L);
+		
+		Professor professorToSave1 = this.professorDAOImpl.findById(1L);
 
-		calendar.set(1991, 5, 2);
-		Professor alunoToSave1 = this.professorFactory.createProfessor(null, "carlos1", "00000011", "11000000");
-		calendar.set(1991, 5, 3);
-		Professor alunoToSave2 = this.professorFactory.createProfessor(null, "carlos2", "00000012", "12000000");
-		calendar.set(1991, 5, 4);
-		Professor alunoToSave3 = this.professorFactory.createProfessor(null, "carlos3", "00000013", "13000000");
+		Professor professorToSave2 = this.professorDAOImpl.findById(2L);
+
+		Professor professorToSave3 = this.professorDAOImpl.findById(3L);
 
 		List<Professor> expectedAlunos = new ArrayList<Professor>();
-		expectedAlunos.add(this.professorDAO.save(alunoToSave1));
-		expectedAlunos.add(this.professorDAO.save(alunoToSave2));
-		expectedAlunos.add(this.professorDAO.save(alunoToSave3));
+		expectedAlunos.add(professorToSave0);
+		expectedAlunos.add(professorToSave1);
+		expectedAlunos.add(professorToSave2);
+		expectedAlunos.add(professorToSave3);
 
 		List<Professor> encontrados = this.professorDAO.findAll();
 
 		assertProfessor(expectedAlunos, encontrados);
 	}
-	
+
 	@Test
 	public void removeProfessorTest() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, 5, 2);
 
-		Professor alunoToSave = this.professorFactory.createProfessor(null, "carlos", "00000010","00000010");
+		Professor alunoToSave = this.professorDAOImpl.findById(1L);
 		Professor savedAluno = this.professorDAO.save(alunoToSave);
 
 		assertProfessor(alunoToSave, savedAluno);
@@ -75,13 +75,13 @@ public class ProfessorDAOTest extends ConfigDBTestCase{
 
 		Assert.assertNull(this.professorDAO.findById(savedAluno.getId()));
 	}
-	
+
 	@Test
 	public void updateProfessorTest() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, 5, 2);
 
-		Professor professorToSave = this.professorFactory.createProfessor(null, "carlos", "00000010", "00000010");
+		Professor professorToSave = this.professorDAOImpl.findById(1L);
 		Professor savedProfessor = this.professorDAO.save(professorToSave);
 
 		assertProfessor(professorToSave, savedProfessor);
@@ -92,20 +92,20 @@ public class ProfessorDAOTest extends ConfigDBTestCase{
 
 		assertProfessor(savedProfessor, updatedAluno);
 	}
-	
-	
+
 	// auxiliar
 
-		private static void assertProfessor(Professor expected, Professor actual) {
-			Assert.assertEquals(expected.getNome(), actual.getNome());
-			Assert.assertEquals(expected.getRegistro(), actual.getRegistro());
+	private static void assertProfessor(Professor expected, Professor actual) {
+		Assert.assertEquals(expected.getNome(), actual.getNome());
+		Assert.assertEquals(expected.getRegistro(), actual.getRegistro());
+	}
+
+	private static void assertProfessor(List<Professor> expected,
+			List<Professor> actual) {
+		Assert.assertEquals(expected.size(), actual.size());
+		for (int i = 0; i < expected.size(); i++) {
+			assertProfessor(expected.get(i), actual.get(i));
 		}
-		
-		private static void assertProfessor(List<Professor> expected, List<Professor> actual) {
-			Assert.assertEquals(expected.size(), actual.size());
-			for (int i = 0; i < expected.size(); i++) {
-				assertProfessor(expected.get(i), actual.get(i));
-			}
-		}
+	}
 
 }

@@ -51,7 +51,8 @@ public class ConfigDBMapper {
 	//arquivo de configurações. Para isso vamos utilizar nosso 'loader'
 	//para pegar o 'path' do mesmo.
 	
-	String path = System.getProperty("user.dir")+"/src/br/com/fatec/projeto/biblioteca/core/config/databases.json";
+	String path = loader.getResource("br/com/fatec/projeto/biblioteca/core/config/databases.json").getPath(); 
+	//System.getProperty("user.dir")+"/src/br/com/fatec/projeto/biblioteca/core/config/databases.json";
 	//Com 'path em mãos iremos converter, fazer 'parse', de seu
 	//contéudo para o objeto JSONArray, já que o arquivo começa
 	//com '[...]', ou seja, o arquivo é um array

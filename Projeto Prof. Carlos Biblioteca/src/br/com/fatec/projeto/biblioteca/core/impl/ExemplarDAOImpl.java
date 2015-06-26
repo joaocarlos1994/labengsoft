@@ -28,10 +28,11 @@ public class ExemplarDAOImpl implements ExemplarDAO{
 	public Exemplar save(Exemplar exemplar) {
 		PreparedStatement insert = null;
 		try {
-			insert = this.connection.prepareStatement("INSERT INTO " + Exemplar.TABLE + " VALUES (?,?);");
+			insert = this.connection.prepareStatement("INSERT INTO " + Exemplar.TABLE + " VALUES (?,?,?);");
 			Long id = GeradorIdService.getInstance().getNextId(Exemplar.TABLE);
 			insert.setLong(1, id);
 			insert.setLong(2, exemplar.getLivro().getId());
+			insert.setLong(3, exemplar.getCodigoExemplar());
 			insert.execute();
 			return this.findById(id);
 		} catch (SQLException e) {

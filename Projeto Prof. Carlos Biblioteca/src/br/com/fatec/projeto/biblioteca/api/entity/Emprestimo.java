@@ -8,11 +8,13 @@ public class Emprestimo {
 	/** */
 	public static final String COL_ID = "ID";
 	/** */
-	public static final String COL_PESSOA = "ALUNO_ID";
-	/** */
 	public static final String COL_EMPRESTIMO = "DATA_EMPRESTIMO";
 	/** */
 	public static final String COL_ENTREGA = "DATA_ENTREGA";
+	/** */
+	public static final String ALUNO_ID = "ALUNO_ID";
+	/** */
+	public static final String PROFESSOR_ID = "PROFESSOR_ID";
 	/** */
 	
 	private Long id;

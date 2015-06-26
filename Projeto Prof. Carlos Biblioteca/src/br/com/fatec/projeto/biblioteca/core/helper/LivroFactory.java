@@ -20,10 +20,10 @@ public class LivroFactory {
 		editoraDAOImpl = new EditoraDAOImpl();
 	}
 	
-	public Livro createLivro(Long id, String titulo, long edicao, 
-			Date anoPublicacao, Editora editora){
+	public Livro createLivro(Long id, String titulo, long edicao, Date anoPublicacao, Editora editora){
 		
 		Livro livro = new Livro();
+		livro.setId(id);
 		livro.setTitulo(titulo);
 		livro.setEdicao(edicao);
 		livro.setAnoPublicacao(anoPublicacao);
@@ -36,6 +36,7 @@ public class LivroFactory {
 			Date anoPublicacao, long editoraId){
 		
 		Livro livro = new Livro();
+		livro.setId(id);
 		livro.setTitulo(titulo);
 		livro.setEdicao(edicao);
 		livro.setAnoPublicacao(anoPublicacao);

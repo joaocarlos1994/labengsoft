@@ -9,11 +9,11 @@ public class Devolucao {
 	/** */
 	public static final String COL_ID = "ID";
 	/** */
-	public static final String COL_DATA_DEVOLUCAO = "DEVOLUCAO";
+	public static final String COL_DATA_DEVOLUCAO = "DATA_DEVOLUCAO";
 	/** */
-	public static final String COL_EXEMPLAR= "EXEMPLAR";
+	public static final String COL_EXEMPLAR= "EXEMPLAR_ID";
 	/** */
-	public static final String COL_EMPRESTIMO = "EMPRESTIMO";
+	public static final String COL_EMPRESTIMO = "EMPRESTIMO_ID";
 	/** */
 	
 	private Long id;

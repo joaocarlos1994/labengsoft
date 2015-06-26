@@ -10,11 +10,13 @@ import br.com.fatec.projeto.biblioteca.api.entity.Exemplar;
 import br.com.fatec.projeto.biblioteca.api.entity.ItemEmprestimo;
 import br.com.fatec.projeto.biblioteca.api.service.EmprestimoDAO;
 import br.com.fatec.projeto.biblioteca.api.service.ExemplarDAO;
+import br.com.fatec.projeto.biblioteca.core.impl.EmprestimoDAOImpl;
+import br.com.fatec.projeto.biblioteca.core.impl.ExemplarDAOImpl;
 
 public class ItemEmprestimoFactory {
 	
-	private EmprestimoDAO emprestimoDAO;
-	private ExemplarDAO exemplarDAO;
+	private EmprestimoDAOImpl emprestimoDAOImpl;
+	private ExemplarDAOImpl exemplarDAOImpl;
 	
 public ItemEmprestimo createItemEmprestimo(Long id, Emprestimo emprestimo, Exemplar exemplar){
 		
@@ -28,10 +30,13 @@ public ItemEmprestimo createItemEmprestimo(Long id, Emprestimo emprestimo, Exemp
 
 public ItemEmprestimo createItemEmprestimo(Long id, long emprestimoId, long exemplarId){
 	
+	emprestimoDAOImpl = new EmprestimoDAOImpl();
+	exemplarDAOImpl = new ExemplarDAOImpl();
+	
 	ItemEmprestimo itemEmprestimo = new ItemEmprestimo();
 	itemEmprestimo.setId(id);
-	itemEmprestimo.setEmprestimo(emprestimoDAO.findById(emprestimoId));
-	itemEmprestimo.setExemplar(exemplarDAO.findById(exemplarId));
+	itemEmprestimo.setEmprestimo(emprestimoDAOImpl.findById(emprestimoId));
+	itemEmprestimo.setExemplar(exemplarDAOImpl.findById(exemplarId));
 	
 	return itemEmprestimo;
 }
@@ -41,7 +46,7 @@ public ItemEmprestimo createItemEmprestimo(Long id, long emprestimoId, long exem
 			return this.createItemEmprestimo(resultado.getLong(ItemEmprestimo.COL_ID), resultado.getLong(ItemEmprestimo.COL_EMPRESTIMO),
 					resultado.getLong(ItemEmprestimo.COL_EXEMPLAR));
 		} catch (SQLException e) {
-			throw new RuntimeException("resultado não inicializado");
+			throw new RuntimeException("resultado não inicializado", e);
 		}
 	}
 

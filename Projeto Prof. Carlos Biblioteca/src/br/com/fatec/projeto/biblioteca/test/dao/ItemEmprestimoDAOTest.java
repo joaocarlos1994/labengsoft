@@ -13,27 +13,33 @@ import br.com.fatec.projeto.biblioteca.api.service.EmprestimoDAO;
 import br.com.fatec.projeto.biblioteca.api.service.ExemplarDAO;
 import br.com.fatec.projeto.biblioteca.api.service.ItemEmprestimoDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.ItemEmprestimoFactory;
+import br.com.fatec.projeto.biblioteca.core.impl.EmprestimoDAOImpl;
+import br.com.fatec.projeto.biblioteca.core.impl.ExemplarDAOImpl;
 import br.com.fatec.projeto.biblioteca.core.impl.ItemEmprestimoDAOImpl;
+import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 import br.com.fatec.projeto.biblioteca.test.commons.ConfigDBTestCase;
 
-public class ItemEmprestimoDAOTest extends ConfigDBTestCase{
+public class ItemEmprestimoDAOTest extends ConfigCenarioTestCase{
+	
 	
 	private ItemEmprestimoDAO itemEmprestimoDAO;
-	private ItemEmprestimoFactory itemEmprestimoFactory;
-	private ExemplarDAO exemplarDAO;
-	private EmprestimoDAO emprestimoDAO;
+	private ItemEmprestimoDAOImpl itemEmprestimoDAOImpl;
+	private EmprestimoDAOImpl emprestimoDAOImpl;
+	private ExemplarDAOImpl exemplarDAOImpl;
 	
 
 	@Before
 	public void config() {
 		this.itemEmprestimoDAO = new ItemEmprestimoDAOImpl();
-		this.itemEmprestimoFactory = new ItemEmprestimoFactory();
+		this.itemEmprestimoDAOImpl = new ItemEmprestimoDAOImpl();
+		this.emprestimoDAOImpl = new EmprestimoDAOImpl();
+		this.exemplarDAOImpl = new ExemplarDAOImpl();
 	}
 
 	@Test
 	public void saveItemEmprestimoTest() {
 
-		ItemEmprestimo itemEmprestimoToSave = this.itemEmprestimoFactory.createItemEmprestimo(null, 1, 1);
+		ItemEmprestimo itemEmprestimoToSave = this.itemEmprestimoDAOImpl.findById(1L);
 		ItemEmprestimo savedItemEmprestimo = this.itemEmprestimoDAO.save(itemEmprestimoToSave);
 
 		assertItemEmprestimo(itemEmprestimoToSave, savedItemEmprestimo);
@@ -42,16 +48,16 @@ public class ItemEmprestimoDAOTest extends ConfigDBTestCase{
 	@Test
 	public void findAllTest() {
 		
-		ItemEmprestimo itemEmprestimoToSave1 = this.itemEmprestimoFactory.createItemEmprestimo(null, 1, 2);
+		ItemEmprestimo itemEmprestimoToSave1 = this.itemEmprestimoDAOImpl.findById(1L);
 		
-		ItemEmprestimo itemEmprestimoToSave2 = this.itemEmprestimoFactory.createItemEmprestimo(null, 3, 4);
+		ItemEmprestimo itemEmprestimoToSave2 = this.itemEmprestimoDAOImpl.findById(2L);
 	
-		ItemEmprestimo itemEmprestimoToSave3 = this.itemEmprestimoFactory.createItemEmprestimo(null, 5, 6);
+		ItemEmprestimo itemEmprestimoToSave3 = this.itemEmprestimoDAOImpl.findById(3L);
 
 		List<ItemEmprestimo> expectedItemEmprestimos = new ArrayList<ItemEmprestimo>();
-		expectedItemEmprestimos.add(this.itemEmprestimoDAO.save(itemEmprestimoToSave1));
-		expectedItemEmprestimos.add(this.itemEmprestimoDAO.save(itemEmprestimoToSave2));
-		expectedItemEmprestimos.add(this.itemEmprestimoDAO.save(itemEmprestimoToSave3));
+		expectedItemEmprestimos.add(itemEmprestimoToSave1);
+		expectedItemEmprestimos.add(itemEmprestimoToSave2);
+		expectedItemEmprestimos.add(itemEmprestimoToSave3);
 
 		List<ItemEmprestimo> encontrados = this.itemEmprestimoDAO.findAll();
 
@@ -60,10 +66,8 @@ public class ItemEmprestimoDAOTest extends ConfigDBTestCase{
 
 	@Test
 	public void removeItemEmprestimoTest() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
 
-		ItemEmprestimo itemEmprestimoToSave = this.itemEmprestimoFactory.createItemEmprestimo(null, 1, 2);
+		ItemEmprestimo itemEmprestimoToSave = this.itemEmprestimoDAOImpl.findById(1L);
 		ItemEmprestimo savedItemEmprestimo = this.itemEmprestimoDAO.save(itemEmprestimoToSave);
 
 		assertItemEmprestimo(itemEmprestimoToSave, savedItemEmprestimo);
@@ -77,12 +81,12 @@ public class ItemEmprestimoDAOTest extends ConfigDBTestCase{
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1991, 5, 2);
 
-		ItemEmprestimo itemEmprestimoToSave = this.itemEmprestimoFactory.createItemEmprestimo(null, 1, 2);
+		ItemEmprestimo itemEmprestimoToSave = this.itemEmprestimoDAOImpl.findById(1L);
 		ItemEmprestimo savedItemEmprestimo = this.itemEmprestimoDAO.save(itemEmprestimoToSave);
 
 		assertItemEmprestimo(itemEmprestimoToSave, savedItemEmprestimo);
-		savedItemEmprestimo.setEmprestimo(emprestimoDAO.findById(2L));
-		savedItemEmprestimo.setExemplar(exemplarDAO.findById(3L));
+		savedItemEmprestimo.setEmprestimo(emprestimoDAOImpl.findById(2L));
+		savedItemEmprestimo.setExemplar(exemplarDAOImpl.findById(3L));
 
 		ItemEmprestimo updatedItemEmprestimo = this.itemEmprestimoDAO.update(savedItemEmprestimo);
 
@@ -92,8 +96,8 @@ public class ItemEmprestimoDAOTest extends ConfigDBTestCase{
 	// auxiliar
 
 	private static void assertItemEmprestimo(ItemEmprestimo expected, ItemEmprestimo actual) {
-		Assert.assertEquals(expected.getEmprestimo(), actual.getEmprestimo());
-		Assert.assertEquals(expected.getExemplar(), actual.getExemplar());
+		Assert.assertEquals(expected.getEmprestimo().getDataEmprestimo(), actual.getEmprestimo().getDataEmprestimo());
+		Assert.assertEquals(expected.getExemplar().getCodigoExemplar(), actual.getExemplar().getCodigoExemplar());
 	}
 
 	private static void assertItemEmprestimos(List<ItemEmprestimo> expected, List<ItemEmprestimo> actual) {

@@ -7,9 +7,9 @@ public class ItemEmprestimo {
 	/** */
 	public static final String COL_ID = "ID";
 	/** */
-	public static final String COL_EMPRESTIMO = "EMPRESTIMO";
+	public static final String COL_EMPRESTIMO = "EMPRESTIMO_ID";
 	/** */
-	public static final String COL_EXEMPLAR = "EXEMPLAR";
+	public static final String COL_EXEMPLAR = "EXEMPLAR_ID";
 	/** */
 	public static final String COL_RA = "RA";
 	

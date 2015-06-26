@@ -12,26 +12,26 @@ import br.com.fatec.projeto.biblioteca.api.entity.Livro;
 import br.com.fatec.projeto.biblioteca.api.service.LivroDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.LivroFactory;
 import br.com.fatec.projeto.biblioteca.core.impl.LivroDAOImpl;
+import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 import br.com.fatec.projeto.biblioteca.test.commons.ConfigDBTestCase;
 
-public class LivroDAOTest extends ConfigDBTestCase{
+public class LivroDAOTest extends ConfigCenarioTestCase{
 	
 	private LivroDAO livroDAO;
-	private LivroFactory livroFactory;
+	private LivroDAOImpl livroDAOImpl;
 
 	@Before
 	public void config() {
 		this.livroDAO = new LivroDAOImpl();
-		this.livroFactory = new LivroFactory();
+		this.livroDAOImpl = new LivroDAOImpl();
 	}
+	
+	
 
 	@Test
 	public void saveLivroTest() {
 		
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-
-		Livro livroToSave = this.livroFactory.createLivro(null, "Python", 1, calendar.getTime(), 1L);
+		Livro livroToSave = this.livroDAOImpl.findById(1L);
 		Livro savedLivro = this.livroDAO.save(livroToSave);
 
 		assertLivro(livroToSave, savedLivro);
@@ -40,20 +40,16 @@ public class LivroDAOTest extends ConfigDBTestCase{
 	@Test
 	public void findAllTest() {
 		
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-		Livro livroToSave1 = this.livroFactory.createLivro(null, "Python", 1, calendar.getTime(), 1L);
+		Livro livroToSave1 = this.livroDAOImpl.findById(1L);
 		
-		calendar.set(1994, 5, 2);
-		Livro livroToSave2 = this.livroFactory.createLivro(null, "Python", 1, calendar.getTime(), 2L);
+		Livro livroToSave2 = this.livroDAOImpl.findById(2L);
 
-		calendar.set(2015, 5, 2);
-		Livro livroToSave3 = this.livroFactory.createLivro(null, "Python", 1, calendar.getTime(), 3L);
+		Livro livroToSave3 = this.livroDAOImpl.findById(3L);
 
 		List<Livro> expectedLivros = new ArrayList<Livro>();
-		expectedLivros.add(this.livroDAO.save(livroToSave1));
-		expectedLivros.add(this.livroDAO.save(livroToSave2));
-		expectedLivros.add(this.livroDAO.save(livroToSave3));
+		expectedLivros.add(livroToSave1);
+		expectedLivros.add(livroToSave2);
+		expectedLivros.add(livroToSave3);
 
 		List<Livro> encontrados = this.livroDAO.findAll();
 
@@ -62,10 +58,8 @@ public class LivroDAOTest extends ConfigDBTestCase{
 
 	@Test
 	public void removeLivroTest() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-
-		Livro livroToSave = this.livroFactory.createLivro(null, "Python", 1, calendar.getTime(), 1L);
+		
+		Livro livroToSave = this.livroDAOImpl.findById(1L);
 		Livro savedLivro = this.livroDAO.save(livroToSave);
 
 		assertLivro(livroToSave, savedLivro);
@@ -77,9 +71,7 @@ public class LivroDAOTest extends ConfigDBTestCase{
 	@Test
 	public void updateLivroTest() {
 		
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-		Livro livroToSave = this.livroFactory.createLivro(null, "Python", 1, calendar.getTime(), 3L);
+		Livro livroToSave = this.livroDAOImpl.findById(1L);
 		Livro savedLivro = this.livroDAO.save(livroToSave);
 
 		assertLivro(livroToSave, savedLivro);

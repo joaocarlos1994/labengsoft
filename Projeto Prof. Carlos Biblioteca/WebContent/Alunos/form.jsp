@@ -7,11 +7,10 @@
 		<div class="container">
 			<div class="row clearfix">
 			<div class="col-md-12 column">
-				<form role="form" formaction="Alunos!registerAluno">
-				
-					
+				<form role="form" action="Alunos!registerAluno">
+						
 					<div class="form-group">
-						<input type="text" class="form-control" name="id" visible="false" />
+						<input type="hidden" class="form-control" name="id" />
 					</div>
 					
 					<div class="form-group">

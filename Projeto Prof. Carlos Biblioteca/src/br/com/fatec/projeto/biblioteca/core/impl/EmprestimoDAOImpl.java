@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
@@ -29,12 +30,22 @@ public class EmprestimoDAOImpl implements EmprestimoDAO{
 	public Emprestimo save(Emprestimo emprestimo) {
 		PreparedStatement insert = null;
 		try {
-			insert = this.connection.prepareStatement("INSERT INTO " + Emprestimo.TABLE + " VALUES (?,?,?,?);");
+			insert = this.connection.prepareStatement("INSERT INTO " + Emprestimo.TABLE + " VALUES (?,?,?,?, ?);");
 			Long id = GeradorIdService.getInstance().getNextId(Emprestimo.TABLE);
 			insert.setLong(1, id);
-			insert.setLong(2, emprestimo.getPessoa().getId());
-			insert.setDate(3, new Date(emprestimo.getDataEmprestimo().getTime()));
-			insert.setDate(4, new Date(emprestimo.getDataEntrega().getTime()));
+			insert.setDate(2, new Date(emprestimo.getDataEmprestimo().getTime()));
+			insert.setDate(3, new Date(emprestimo.getDataEntrega().getTime()));
+			
+			if (emprestimo.getPessoa() instanceof Aluno){
+				insert.setLong(4, emprestimo.getPessoa().getId());
+				insert.setNull(5, Types.BIGINT);
+			}else {
+				
+				insert.setNull(5, Types.BIGINT);
+				insert.setLong(5, emprestimo.getPessoa().getId());
+				
+			}
+			
 			insert.execute();
 			return this.findById(id);
 		} catch (SQLException e) {
@@ -95,11 +106,10 @@ public class EmprestimoDAOImpl implements EmprestimoDAO{
 	public Emprestimo update(Emprestimo emprestimo) {
 		PreparedStatement update = null;
 		try {
-			update = this.connection.prepareStatement("UPDATE " + Emprestimo.TABLE + " SET " + Emprestimo.COL_PESSOA + " = ?, "
-					+ Emprestimo.COL_EMPRESTIMO + " = ?, " + Emprestimo.COL_ENTREGA + " = ?;");
-			update.setLong(1, emprestimo.getPessoa().getId());
-			update.setDate(2, new Date(emprestimo.getDataEmprestimo().getTime()));
-			update.setDate(3, new Date(emprestimo.getDataEntrega().getTime()));
+			update = this.connection.prepareStatement("UPDATE " + Emprestimo.TABLE + " SET " + Emprestimo.COL_EMPRESTIMO + " = ?, "
+					+ Emprestimo.COL_ENTREGA + " = ?;");
+			update.setDate(1, new Date(emprestimo.getDataEmprestimo().getTime()));
+			update.setDate(2, new Date(emprestimo.getDataEntrega().getTime()));
 			update.execute();
 			return this.findById(emprestimo.getId());
 		} catch (SQLException e) {

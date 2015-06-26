@@ -12,41 +12,41 @@ import br.com.fatec.projeto.biblioteca.api.entity.Exemplar;
 import br.com.fatec.projeto.biblioteca.api.service.ExemplarDAO;
 import br.com.fatec.projeto.biblioteca.core.helper.ExemplarFactory;
 import br.com.fatec.projeto.biblioteca.core.impl.ExemplarDAOImpl;
+import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 import br.com.fatec.projeto.biblioteca.test.commons.ConfigDBTestCase;
 
-public class ExemplarDAOTest extends ConfigDBTestCase{
+public class ExemplarDAOTest extends ConfigCenarioTestCase{
 	
 	private ExemplarDAO exemplarDAO;
-	private ExemplarFactory exemplarFactory;
+	private ExemplarDAOImpl exemplarDAOImpl;
 
 	@Before
 	public void config() {
 		this.exemplarDAO = new ExemplarDAOImpl();
-		this.exemplarFactory = new ExemplarFactory();
+		this.exemplarDAOImpl = new ExemplarDAOImpl();
 	}
 
 	@Test
 	public void saveExemplarTest() {
 
-		Exemplar exemplarToSave = this.exemplarFactory.createExemplar(null, 1, 1);
+		Exemplar exemplarToSave = this.exemplarDAOImpl.findById(1L);
 		Exemplar savedExemplar = this.exemplarDAO.save(exemplarToSave);
-
 		assertExemplar(exemplarToSave, savedExemplar);
 	}
 
 	@Test
 	public void findAllTest() {
 		
-		Exemplar exemplarToSave1 = this.exemplarFactory.createExemplar(null, 1, 1);
+		Exemplar exemplarToSave1 = this.exemplarDAOImpl.findById(1L);
 		
-		Exemplar exemplarToSave2 = this.exemplarFactory.createExemplar(null, 2, 2);
+		Exemplar exemplarToSave2 = this.exemplarDAOImpl.findById(2L);
 
-		Exemplar exemplarToSave3 = this.exemplarFactory.createExemplar(null, 3, 3);
+		Exemplar exemplarToSave3 = this.exemplarDAOImpl.findById(3L);
 
 		List<Exemplar> expectedExemplars = new ArrayList<Exemplar>();
-		expectedExemplars.add(this.exemplarDAO.save(exemplarToSave1));
-		expectedExemplars.add(this.exemplarDAO.save(exemplarToSave2));
-		expectedExemplars.add(this.exemplarDAO.save(exemplarToSave3));
+		expectedExemplars.add(exemplarToSave1);
+		expectedExemplars.add(exemplarToSave2);
+		expectedExemplars.add(exemplarToSave3);
 
 		List<Exemplar> encontrados = this.exemplarDAO.findAll();
 
@@ -55,10 +55,8 @@ public class ExemplarDAOTest extends ConfigDBTestCase{
 
 	@Test
 	public void removeExemplarTest() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1991, 5, 2);
-
-		Exemplar exemplarToSave = this.exemplarFactory.createExemplar(null, 1, 1);
+		
+		Exemplar exemplarToSave = this.exemplarDAOImpl.findById(1L);
 		Exemplar savedExemplar = this.exemplarDAO.save(exemplarToSave);
 
 		assertExemplar(exemplarToSave, savedExemplar);
@@ -70,15 +68,14 @@ public class ExemplarDAOTest extends ConfigDBTestCase{
 	@Test
 	public void updateExemplarTest() {
 		
-		Exemplar exemplarToSave = this.exemplarFactory.createExemplar(null,  1, 1);
-		Exemplar savedExemplar = this.exemplarDAO.save(exemplarToSave);
+		Exemplar exemplarToSave = this.exemplarDAOImpl.findById(1L);
+		
+		exemplarToSave.setCodigoExemplar(2);
 
-		assertExemplar(exemplarToSave, savedExemplar);
-		savedExemplar.setCodigoExemplar(2);
+		Exemplar updatedExemplar = this.exemplarDAO.update(exemplarToSave);
+		exemplarToSave = this.exemplarDAOImpl.findById(1L);
 
-		Exemplar updatedExemplar = this.exemplarDAO.update(savedExemplar);
-
-		assertExemplar(savedExemplar, updatedExemplar);
+		assertExemplar(exemplarToSave, updatedExemplar);
 	}
 
 	// auxiliar

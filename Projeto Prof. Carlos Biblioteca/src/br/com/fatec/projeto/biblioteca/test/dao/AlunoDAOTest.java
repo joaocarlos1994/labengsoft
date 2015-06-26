@@ -1,8 +1,6 @@
 package br.com.fatec.projeto.biblioteca.test.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Assert;
@@ -11,31 +9,29 @@ import org.junit.Test;
 
 import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
 import br.com.fatec.projeto.biblioteca.api.service.AlunoDAO;
-import br.com.fatec.projeto.biblioteca.core.helper.AlunoFactory;
 import br.com.fatec.projeto.biblioteca.core.impl.AlunoDAOImpl;
-import br.com.fatec.projeto.biblioteca.test.commons.ConfigDBTestCase;
-import br.com.fatec.projeto.biblioteca.test.commons.CustomAsserts;
+import br.com.fatec.projeto.biblioteca.test.commons.ConfigCenarioTestCase;
 
 /**
  * @author Carlos
  *
  * @version
  */
-public class AlunoDAOTest extends ConfigDBTestCase {
+public class AlunoDAOTest extends ConfigCenarioTestCase{
 
 	private AlunoDAO alunoDAO;
-	private AlunoFactory alunoFactory;
+	private AlunoDAOImpl alunoDAOImpl;
 
 	@Before
 	public void config() {
 		this.alunoDAO = new AlunoDAOImpl();
-		this.alunoFactory = new AlunoFactory();
+		this.alunoDAOImpl = new AlunoDAOImpl();
 	}
 
 	@Test
 	public void saveAlunoTest() {
 		
-		Aluno alunoToSave = this.alunoFactory.createAluno(null, "carlos", "00000010", "1000000");
+		Aluno alunoToSave = this.alunoDAOImpl.findById(1L);
 		Aluno savedAluno = this.alunoDAO.save(alunoToSave);
 
 		assertAluno(alunoToSave, savedAluno);
@@ -44,16 +40,19 @@ public class AlunoDAOTest extends ConfigDBTestCase {
 	@Test
 	public void findAllTest() {
 		
-		Aluno alunoToSave1 = this.alunoFactory.createAluno(null, "carlos1", "00000011", "11000000");
+		Aluno alunoToSave0 = this.alunoDAOImpl.findById(0L);
+		
+		Aluno alunoToSave1 = this.alunoDAOImpl.findById(1L);
 	
-		Aluno alunoToSave2 = this.alunoFactory.createAluno(null, "carlos2", "00000012", "12000000");
+		Aluno alunoToSave2 = this.alunoDAOImpl.findById(2L);
 
-		Aluno alunoToSave3 = this.alunoFactory.createAluno(null, "carlos3", "00000013", "13000000");
+		Aluno alunoToSave3 = this.alunoDAOImpl.findById(3L);
 
 		List<Aluno> expectedAlunos = new ArrayList<Aluno>();
-		expectedAlunos.add(this.alunoDAO.save(alunoToSave1));
-		expectedAlunos.add(this.alunoDAO.save(alunoToSave2));
-		expectedAlunos.add(this.alunoDAO.save(alunoToSave3));
+		expectedAlunos.add(alunoToSave0);
+		expectedAlunos.add(alunoToSave1);
+		expectedAlunos.add(alunoToSave2);
+		expectedAlunos.add(alunoToSave3);
 
 		List<Aluno> encontrados = this.alunoDAO.findAll();
 
@@ -63,7 +62,7 @@ public class AlunoDAOTest extends ConfigDBTestCase {
 	@Test
 	public void removeAlunoTest() {
 
-		Aluno alunoToSave = this.alunoFactory.createAluno(null, "carlos", "00000010","00000010");
+		Aluno alunoToSave = this.alunoDAOImpl.findById(1L);
 		Aluno savedAluno = this.alunoDAO.save(alunoToSave);
 
 		assertAluno(alunoToSave, savedAluno);
@@ -75,7 +74,7 @@ public class AlunoDAOTest extends ConfigDBTestCase {
 	@Test
 	public void updateAlunoTest() {
 
-		Aluno alunoToSave = this.alunoFactory.createAluno(null, "carlos", "00000010", "00000010");
+		Aluno alunoToSave = this.alunoDAOImpl.findById(1L);
 		Aluno savedAluno = this.alunoDAO.save(alunoToSave);
 
 		assertAluno(alunoToSave, savedAluno);
