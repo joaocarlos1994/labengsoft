@@ -1,0 +1,57 @@
+package br.com.fatec.projeto.biblioteca.web.actions;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+import br.com.fatec.projeto.biblioteca.api.entity.Devolucao;
+import br.com.fatec.projeto.biblioteca.api.entity.Emprestimo;
+import br.com.fatec.projeto.biblioteca.api.entity.Exemplar;
+import br.com.fatec.projeto.biblioteca.api.entity.Professor;
+import br.com.fatec.projeto.biblioteca.core.helper.DevolucaoFactory;
+import br.com.fatec.projeto.biblioteca.core.helper.ProfessorFactory;
+import br.com.fatec.projeto.biblioteca.core.impl.DevolucaoDAOImpl;
+import br.com.fatec.projeto.biblioteca.core.impl.ProfessorDAOImpl;
+
+@Getter
+@Setter
+public class DevolucaoAction {
+
+	private static final long serialVersionUID = 1L;
+
+	private DevolucaoDAOImpl devolucaoDAoImpl;
+	private DevolucaoFactory devolucaoFactory;
+
+	private Long id;
+	private Date dataDevolucao;
+	private Exemplar exemplar;
+	private Emprestimo emprestimo;
+
+	public String listDevolucaos() {
+
+		devolucaoDAoImpl = new DevolucaoDAOImpl();
+
+		listDevolucao = new ArrayList<Devolucao>();
+		listDevolucao = devolucaoDAoImpl.findAll();
+
+		return "list";
+	}
+
+	public String registerDevolucao() {
+
+		devolucaoFactory = new DevolucaoFactory();
+		devolucaoDAoImpl = new DevolucaoDAOImpl();
+
+		Devolucao devolucao = devolucaoFactory.createDevolucao(id, dataDevolucao, exemplar.getCodigoExemplar(), emprestimo.getId());
+		devolucaoDAoImpl.save(devolucao);
+
+		return this.listDevolucaos();
+	}
+
+	public String form() {
+		return "form";
+	}
+
+}

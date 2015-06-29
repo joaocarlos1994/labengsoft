@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;br.com.fatec.projeto.biblioteca.actions&apos; to &apos;br.com.fatec.projeto.biblioteca.web.actions&apos;&#x0A;- Original project: &apos;projeto_biblioteca&apos;&#x0A;- Original element: &apos;projeto_biblioteca/src/br.com.fatec.projeto.biblioteca.actions&apos;&#x0A;- Renamed element: &apos;projeto_biblioteca/src/br.com.fatec.projeto.biblioteca.web.actions&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;br.com.fatec.projeto.biblioteca.actions&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;br.com.fatec.projeto.biblioteca.actions" name="br.com.fatec.projeto.biblioteca.web.actions" qualified="false" references="true" stamp="1433799507731" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,9 @@
+[
+{
+	"name": "fatec",
+	"url": "jdbc:hsqldb:mem:test",
+	"login": "sa",
+	"password": "",
+	"driverClassName": "org.hsqldb.jdbcDriver"
+}
+]

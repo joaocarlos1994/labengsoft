@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;GeradorIdService.java&apos; to &apos;Projeto Prof. Carlos Biblioteca/src/br.com.fatec.projeto.biblioteca.core.service&apos;&#x0A;- Original project: &apos;t_01&apos;&#x0A;- Destination element: &apos;Projeto Prof. Carlos Biblioteca/src/br.com.fatec.projeto.biblioteca.core.service&apos;&#x0A;- Original element: &apos;br.com.fatec.aulas.core.service.GeradorIdService.java&apos;" description="Copy compilation unit" destination="=Projeto Prof. Carlos Biblioteca/src&lt;br.com.fatec.projeto.biblioteca.core.service" element1="/src&lt;br.com.fatec.aulas.core.service{GeradorIdService.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1429993029788" units="1" version="1.0"/>
+</session>

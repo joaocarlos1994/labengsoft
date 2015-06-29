@@ -1,0 +1,50 @@
+package br.com.fatec.aulas.core.helper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import br.com.fatec.aulas.api.entity.Aluno;
+
+/**
+ * @author Carlos
+ *
+ * @version
+ */
+public class AlunoFactory {
+
+	public Aluno criarAluno(Long id, String nome, String ra, String rg, Date dataNascimento) {
+		Aluno aluno = new Aluno();
+		aluno.setId(id);
+		aluno.setNome(nome);
+		aluno.setRa(ra);
+		aluno.setDataNascimento(dataNascimento);
+		return aluno;
+	}
+
+
+	public Aluno criarAluno(ResultSet resultado) {
+		try {
+			return this.criarAluno(resultado.getLong(Aluno.COL_ID), resultado.getString(Aluno.COL_NOME),
+					resultado.getString(Aluno.COL_RA), resultado.getDate(Aluno.COL_DATA_NASCIMENTO));
+		} catch (SQLException e) {
+			throw new RuntimeException("resultado n�o inicializado");
+		}
+	}
+
+	public List<Aluno> criarAlunos(ResultSet resultado) {
+		try {
+			List<Aluno> alunos = new ArrayList<Aluno>();
+			while (resultado.next()) {
+				alunos.add(this.criarAluno(resultado.getLong(Aluno.COL_ID), resultado.getString(Aluno.COL_NOME),
+						resultado.getString(Aluno.COL_RA), resultado.getDate(Aluno.COL_DATA_NASCIMENTO)));
+			}
+			return alunos;
+		} catch (SQLException e) {
+			throw new RuntimeException("resultado n�o inicializado");
+		}
+	}
+
+}

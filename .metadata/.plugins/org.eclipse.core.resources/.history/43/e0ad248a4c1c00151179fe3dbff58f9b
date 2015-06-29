@@ -1,0 +1,49 @@
+package br.com.fatec.projeto.biblioteca.web.actions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.fatec.projeto.biblioteca.api.entity.Aluno;
+import br.com.fatec.projeto.biblioteca.core.helper.AlunoFactory;
+import br.com.fatec.projeto.biblioteca.core.impl.AlunoDAOImpl;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+public class AlunosAction extends ActionSupport {
+
+	private static final long serialVersionUID = 1L;
+
+	private AlunoDAOImpl alunoDAoImpl;
+	private AlunoFactory alunoFactory;
+
+	private Long id;
+	private String nome;
+	private String rg;
+	private String ra;
+
+	public String listAlunos() {
+
+		alunoDAoImpl = new AlunoDAOImpl();
+
+		List<Aluno> listAluno = new ArrayList<Aluno>();
+		listAluno = alunoDAoImpl.findAll();
+
+		return "list";
+	}
+
+	public String registerAluno() {
+
+		alunoFactory = new AlunoFactory();
+		alunoDAoImpl = new AlunoDAOImpl();
+
+		Aluno aluno = alunoFactory.createAluno(id, nome, rg, ra);
+		alunoDAoImpl.save(aluno);
+
+		return "list";
+	}
+
+	public String form() {
+		return "form";
+	}
+
+}

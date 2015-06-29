@@ -1,0 +1,54 @@
+package br.com.fatec.projeto.biblioteca.web.actions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+import br.com.fatec.projeto.biblioteca.api.entity.Editora;
+import br.com.fatec.projeto.biblioteca.api.entity.Professor;
+import br.com.fatec.projeto.biblioteca.core.helper.EditoraFactory;
+import br.com.fatec.projeto.biblioteca.core.helper.ProfessorFactory;
+import br.com.fatec.projeto.biblioteca.core.impl.EditoraDAOImpl;
+import br.com.fatec.projeto.biblioteca.core.impl.ProfessorDAOImpl;
+
+@Getter
+@Setter
+public class EditoraAction {
+	
+	private static final long serialVersionUID = 1L;
+
+	private EditoraDAOImpl editoraDAoImpl;
+	private EditoraFactory editoraFactory;
+
+	private Long id;
+	private String nomeEditora;
+	private String seguimento;
+	private List<Editora> listEditora; 
+	
+	public String listEditoras() {
+
+		editoraDAoImpl = new EditoraDAOImpl();
+
+		listEditora = new ArrayList<Editora>();
+		listEditora = editoraDAoImpl.findAll();
+
+		return "list";
+	}
+
+	public String registerEditora() {
+
+		editoraFactory = new EditoraFactory();
+		editoraDAoImpl = new EditoraDAOImpl();
+
+		Editora editora = editoraFactory.createEditora(id, nomeEditora, seguimento);
+		editoraDAoImpl.save(editora);
+
+		return this.listEditoras();
+	}
+
+	public String form() {
+		return "form";
+	}
+
+}

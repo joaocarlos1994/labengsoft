@@ -1,0 +1,5 @@
+package br.com.fatec.projeto.biblioteca.web.actions;
+
+public class ExemplarAction {
+
+}

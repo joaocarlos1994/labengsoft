@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="default" extends="struts-default" namespace="/">
+		<action name="*!*" class="br.com.fatec.projeto.biblioteca.web.actions.{1}Action" method="{2}">
+			<result name="list">/{1}/list.jsp</result>
+			<result name="form">/{1}/form.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,47 @@
+package br.com.fatec.projeto.biblioteca.web.actions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.fatec.projeto.biblioteca.api.entity.Professor;
+import br.com.fatec.projeto.biblioteca.core.helper.ProfessorFactory;
+import br.com.fatec.projeto.biblioteca.core.impl.ProfessorDAOImpl;
+
+public class ProfessorAction {
+	
+	private static final long serialVersionUID = 1L;
+
+	private ProfessorDAOImpl professorDAoImpl;
+	private ProfessorFactory professorFactory;
+
+	private Long id;
+	private String nome;
+	private String rg;
+	private String registro;
+
+	public String listProfessores() {
+
+		professorDAoImpl = new ProfessorDAOImpl();
+
+		List<Professor> listProfessor = new ArrayList<Professor>();
+		listProfessor = professorDAoImpl.findAll();
+
+		return "list";
+	}
+
+	public String registerProfessor() {
+
+		professorFactory = new ProfessorFactory();
+		professorDAoImpl = new ProfessorDAOImpl();
+
+		Professor professor = professorFactory.createProfessor(id, nome, rg, registro);
+		professorDAoImpl.save(professor);
+
+		return this.listProfessors();
+	}
+
+	public String form() {
+		return "form";
+	}
+
+}

@@ -1,0 +1,28 @@
+package br.com.fatec.projeto.biblioteca.core;
+
+import java.sql.Connection;
+
+import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.DatabaseException;
+import liquibase.resource.ClassLoaderResourceAccessor;
+import br.com.fatec.projeto.biblioteca.core.helper.ConfigDBMapper;
+
+public class LiquibaseRunner {
+	
+	public static void runnerLiquibase (String url) throws DatabaseException{
+		
+		ConfigDBMapper.getInstance().setDefaultConnectionName("fatec");
+		Connection conn = ConfigDBMapper.getInstance().getDefaultConnetion();
+		Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(conn));
+		Liquibase liquibase = new Liquibase("br/com/fatec/projeto/biblioteca/liquibase/changelog-master-teste.xml",
+				new ClassLoaderResourceAccessor(), database);
+		liquibase.forceReleaseLocks();
+		liquibase.update("fatec");
+		
+	}
+	
+
+}

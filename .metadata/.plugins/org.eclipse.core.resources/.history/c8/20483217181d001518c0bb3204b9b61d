@@ -1,0 +1,29 @@
+<%@ taglib prefix="fatec" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<fatec:genericpage title="Emprestimos Cadastrados">
+	<jsp:attribute name="body">
+
+	<table class="table">
+	
+		<tr>
+			<th>Id</th>
+			<th>Nome</th>
+			<th>RG</th>
+			<th>RA</th>
+		</tr>
+		
+		<c:forEach var="emprestimo" items="${listEmprestimo}">
+		
+		<tr>
+			<td> ${emprestimo.id} </td>
+			<td> ${aluno.nome} </td>
+			<td> ${aluno.rg} </td>
+			<td> ${aluno.ra} </td>
+		</tr>
+		
+		</c:forEach>
+		
+	</table>
+	
+	</jsp:attribute>
+</fatec:genericpage>

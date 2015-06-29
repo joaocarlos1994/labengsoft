@@ -1,0 +1,85 @@
+package br.com.fatec.aulas.api.entity;
+
+import java.util.Date;
+
+/**
+ * @author Carlos
+ *
+ * @version 1.0.0
+ */
+
+public class Aluno {
+
+	/** */
+	public static final String TABLE = "FATEC_ALUNO";
+	/** */
+	public static final String COL_ID = "ID";
+	/** */
+	public static final String COL_NOME = "NOME";
+	/** */
+	public static final String COL_RA = "RA";
+	/** */
+	public static final String COL_DATA_NASCIMENTO = "DATA_NASCIMENTO";
+
+	private Long id;
+	private String nome;
+	private String ra;
+	private Date dataNascimento;
+
+	/**
+	 * @return id
+	 */
+	public Long getId() {
+		return this.id;
+	}
+
+	/**
+	 * @param id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return nome
+	 */
+	public String getNome() {
+		return this.nome;
+	}
+
+	/**
+	 * @param nome
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	/**
+	 * @return ra
+	 */
+	public String getRa() {
+		return this.ra;
+	}
+
+	/**
+	 * @param ra
+	 */
+	public void setRa(String ra) {
+		this.ra = ra;
+	}
+
+	/**
+	 * @return dataNascimento
+	 */
+	public Date getDataNascimento() {
+		return this.dataNascimento;
+	}
+
+	/**
+	 * @param dataNascimento
+	 */
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+}

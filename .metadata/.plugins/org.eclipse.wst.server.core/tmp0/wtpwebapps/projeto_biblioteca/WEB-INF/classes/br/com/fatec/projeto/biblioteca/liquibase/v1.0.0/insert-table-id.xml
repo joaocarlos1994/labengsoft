@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+		
+		
+		<changeSet id="02" author="carlos.oliveira">
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">FATEC_ALUNO</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">FATEC_PROFESSOR</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">EDITORA</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">FATEC_LIVRO</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">FATEC_EXEMPLAR</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">FATEC_EMPRESTIMO</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">FATEC_DEVOLUCAO</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+
+		<insert tableName="FATEC_IDS">
+			<column name="TABLE_NAME">FATEC_ITEM_EMPRESTIMO</column>
+			<column name="NEXT_ID">1</column>
+		</insert>
+		
+	</changeSet>
+		
+</databaseChangeLog>
